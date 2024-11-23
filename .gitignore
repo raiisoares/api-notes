@@ -1,3 +1,10 @@
 node_modules
 build
+.idea
 .env
+/.idea/.gitignore
+/.idea/api-notes.iml
+/.idea/codeStyles/codeStyleConfig.xml
+/.idea/jsLibraryMappings.xml
+/.idea/modules.xml
+/.idea/vcs.xml
