@@ -1,6 +1,7 @@
 node_modules
 build
 .idea
+coverage
 .env
 /.idea/.gitignore
 /.idea/api-notes.iml

@@ -1,12 +1,10 @@
 import {z} from 'zod'
 import {FastifyReply, FastifyRequest} from 'fastify'
-import {NotesUseCase} from '@/use-case/create-notes'
-import {PrismaNotesRepository} from '@/repositories/prisma/prisma-notes-repository'
+import {makeCreateNoteUseCase} from '@/factories/make-create-note-use-case'
 
 export async function createNote(req: FastifyRequest, res: FastifyReply) {
+    const createNoteUseCase = makeCreateNoteUseCase()
 
-    const notesRepository = new PrismaNotesRepository()
-    const notesUseCase = new NotesUseCase(notesRepository)
     const registerBodySchema = z.object({
         title: z.string(),
         subject: z.string(),
@@ -16,7 +14,7 @@ export async function createNote(req: FastifyRequest, res: FastifyReply) {
     const {title, subject, content} = registerBodySchema.parse(req.body)
 
     try {
-        await notesUseCase.execute({title, subject, content})
+        await createNoteUseCase.execute({title, subject, content})
     } catch (err) {
         throw err
     }
