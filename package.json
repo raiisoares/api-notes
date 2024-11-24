@@ -11,7 +11,7 @@
   "type": "module",
   "scripts": {
     "dev": "tsx watch src/server.ts",
-    "build": "tsup src --out-dir build",
+    "build": "tsup src --out-dir build --external vitest",
     "start": "node build/server.js",
     "test": "vitest run",
     "test:watch": "vitest",
