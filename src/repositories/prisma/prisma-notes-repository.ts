@@ -11,7 +11,7 @@ export class PrismaNotesRepository implements NotesRepository {
         await prisma.notes.delete({where: {id}})
     }
 
-    async findALl(): Promise<Notes[]> {
+    async findAll(): Promise<Notes[]> {
         return prisma.notes.findMany()
     }
 

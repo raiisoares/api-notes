@@ -6,6 +6,6 @@ export class FindAllNotesUseCase {
     }
 
     async execute(): Promise<Notes[]> {
-        return await this.notesRepository.findALl()
+        return await this.notesRepository.findAll()
     }
 }

@@ -5,7 +5,7 @@ export interface NotesRepository {
 
     delete(id: String): Promise<void>
 
-    findALl(): Promise<Notes[]>
+    findAll(): Promise<Notes[]>
 
     updateStatus(id: String): Promise<Notes>
 
