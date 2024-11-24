@@ -8,4 +8,6 @@ export interface NotesRepository {
     findALl(): Promise<Notes[]>
 
     updateStatus(id: String): Promise<Notes>
+
+    updateNote(id: String, data: Prisma.NotesUpdateInput): Promise<Notes>
 }

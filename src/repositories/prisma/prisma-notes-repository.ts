@@ -16,6 +16,10 @@ export class PrismaNotesRepository implements NotesRepository {
     }
 
     async updateStatus(id: string): Promise<Notes> {
-        return prisma.notes.update({where:  {id}, data: {status: false}})
+        return prisma.notes.update({where: {id}, data: {status: true}})
+    }
+
+    updateNote(id: string, data: Prisma.NotesUpdateInput): Promise<Notes> {
+        return prisma.notes.update({where: {id}, data: {...data}})
     }
 }
