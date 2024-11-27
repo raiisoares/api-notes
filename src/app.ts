@@ -3,6 +3,7 @@ import {appRouter} from '@/http/routes'
 import {ZodError} from 'zod'
 import {env} from '@/env'
 import cors from '@fastify/cors'
+import cookie from '@fastify/cookie'
 
 export const app = fastify()
 
@@ -10,6 +11,15 @@ app.register(appRouter)
 app.register(cors, {
     origin: '*',
 })
+
+fastify.register(cookie, {
+    parseOptions: {
+        httpOnly: true,
+        sameSite: 'none',
+        secure: true
+    }
+})
+
 
 app.setErrorHandler((error, _, reply) => {
     if (error instanceof ZodError) {
