@@ -5,11 +5,11 @@ import {makeDeleteNoteUseCase} from '@/factories/make-delete-note-use-case'
 export async function deleteNote(req: FastifyRequest, res: FastifyReply) {
     const deleteNoteUseCase = makeDeleteNoteUseCase()
 
-    const deleteNoteBodySchema = z.object({
-        id: z.string(),
+    const deleteNoteParamsSchema = z.object({
+        id: z.string().min(1, "ID é obrigatório"),
     })
 
-    const {id} = deleteNoteBodySchema.parse(req.body)
+    const { id } = deleteNoteParamsSchema.parse(req.params)
 
     try {
         await deleteNoteUseCase.execute({id})
