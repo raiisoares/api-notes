@@ -2,10 +2,14 @@ import fastify from 'fastify'
 import {appRouter} from '@/http/routes'
 import {ZodError} from 'zod'
 import {env} from '@/env'
+import cors from '@fastify/cors'
 
 export const app = fastify()
 
 app.register(appRouter)
+app.register(cors, {
+    origin: '*',
+})
 
 app.setErrorHandler((error, _, reply) => {
     if (error instanceof ZodError) {
