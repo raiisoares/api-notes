@@ -12,7 +12,7 @@ app.register(cors, {
     origin: '*',
 })
 
-fastify.register(cookie, {
+app.register(cookie, {
     parseOptions: {
         httpOnly: true,
         sameSite: 'none',
