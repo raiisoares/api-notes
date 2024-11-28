@@ -45,7 +45,9 @@ If you are using the containerized setup, proceed with the following command to 
 To start the application in the development environment, use the following command:
 - `npm run dev`
 
-After completing these steps, the application should be fully operational
+After completing these steps, the application should be fully operational.
+
+With the API running, you can access `http://localhost:3333/docs` to open the Swagger UI and view the routes documentation.
 
 ## Tools and Services for Development
 

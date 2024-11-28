@@ -6,10 +6,10 @@ import {updateNoteStatus} from '@/http/controllers/update-note-status'
 import {updateNote} from '@/http/controllers/update-note'
 
 export function appRouter(app: FastifyInstance) {
-    app.post('/notes', createNote)
-    app.delete('/notes/:id', deleteNote)
-    app.get('/notes', findAllNotes)
-    app.patch('/notes/status', updateNoteStatus)
-    app.patch('/notes', updateNote)
+  app.register(createNote)
+  app.register(deleteNote)
+  app.register(findAllNotes)
+  app.register(updateNoteStatus)
+  app.register(updateNote)
 }
 

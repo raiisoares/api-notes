@@ -1,25 +1,29 @@
-import {FastifyReply, FastifyRequest} from 'fastify'
-import {z} from 'zod'
+import {FastifyInstance} from 'fastify'
 import {makeUpdateNoteUseCase} from '@/factories/update-note-use-case'
+import {ZodTypeProvider} from 'fastify-type-provider-zod'
+import {UpdateNoteRequestSchema} from '@/validations/uptdate-note-request-schema'
+import {NoteResponseSchema} from '@/validations/note-response-schema'
 
-export async function updateNote(req: FastifyRequest, res: FastifyReply) {
-    const updateNoteUseCase = makeUpdateNoteUseCase()
+export async function updateNote(app: FastifyInstance) {
+  app.withTypeProvider<ZodTypeProvider>()
+      .patch('/notes', {
+        schema: {
+          summary: 'Update a note',
+          tags: ['notes'],
+          body: UpdateNoteRequestSchema,
+          response: {
+            200: NoteResponseSchema,
+          }
+        },
+      }, async (request, reply) => {
+        const updateNoteUseCase = makeUpdateNoteUseCase()
+        const {id, data} = request.body
 
-    const updateNoteStatusSchema = z.object({
-        id: z.string(),
-        data: z.object({
-            title: z.string().optional(),
-            subject: z.string().optional(),
-            content: z.string().optional(),
-        })
-    })
-
-    const {id, data} = updateNoteStatusSchema.parse(req.body)
-
-    try {
-        const updatedNote = await updateNoteUseCase.execute({id, data})
-        return res.status(200).send(updatedNote)
-    } catch (err) {
-        throw err
-    }
+        try {
+          const updatedNote = await updateNoteUseCase.execute({id, data})
+          return reply.status(200).send(updatedNote)
+        } catch (err) {
+          throw err
+        }
+      })
 }
