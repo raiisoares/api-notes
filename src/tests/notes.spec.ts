@@ -32,18 +32,18 @@ describe('Notes use cases', () => {
 
     it('Should create a note', async () => {
         const response = await createNoteUseCase.execute({...validNoteMock})
-        expect(response.note.id).toEqual(expect.any(String))
-        expect(response.note.title).toBe(validNoteMock.title)
-        expect(response.note.content).toBe(validNoteMock.content)
-        expect(response.note.subject).toBe(validNoteMock.subject)
+        expect(response.id).toEqual(expect.any(String))
+        expect(response.title).toBe(validNoteMock.title)
+        expect(response.content).toBe(validNoteMock.content)
+        expect(response.subject).toBe(validNoteMock.subject)
     })
 
     it('Should delete a note', async () => {
         const response = await createNoteUseCase.execute({...validNoteMock})
-        await deleteNoteUseCase.execute({id: response.note.id})
+        await deleteNoteUseCase.execute({id: response.id})
 
         await expect(() => {
-            return updateNoteStatusUseCase.execute({id: response.note.id})
+            return updateNoteStatusUseCase.execute({id: response.id})
         }).rejects.toThrow('Note not found')
     })
 
@@ -65,7 +65,7 @@ describe('Notes use cases', () => {
             subject: 'Updated subject',
         }
         const updatedNote = await updateNoteUseCase.execute({
-            id: response.note.id,
+            id: response.id,
             data: updatedNoteData,
         })
 
@@ -93,7 +93,7 @@ describe('Notes use cases', () => {
     it('Should update the status of a note', async () => {
         const response = await createNoteUseCase.execute({...validNoteMock});
         const updatedNote = await updateNoteStatusUseCase.execute({
-            id: response.note.id,
+            id: response.id,
         })
 
         expect(updatedNote.status).toBe(true)
